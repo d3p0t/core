@@ -16,8 +16,10 @@ return new class extends Migration
 
             $table->string('subject')->nullable();
             $table->string('content');
-            $table->string('recipient_id');
-            
+            $table->boolean('is_read')->default(false);
+
+            $table->morphs('recipient');
+
             $table->timestamps();
         });
     }
