@@ -13,7 +13,7 @@ class Notification extends Model {
     ];
 
     public function recipient(): BelongsTo {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'id', 'recipient_id');
     }
 
 }
