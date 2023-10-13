@@ -7,5 +7,5 @@ metadata:
     github.com/project-slug: d3p0t/core
 spec:
   type: library
-  owner: d3p0t/maintainers
+  owner: D3p0t
   lifecycle: experimental
