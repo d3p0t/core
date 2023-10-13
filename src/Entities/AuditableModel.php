@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 
 abstract class AuditableModel extends Model {
 
-
     protected static function booted(): void
     {
         static::creating(function (AuditableModel $model) {
