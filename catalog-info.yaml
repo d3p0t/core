@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: D3p0t Core
+  name: D3p0t-Core
   description: An example deployment of a Backstage application.
   annotations:
     github.com/project-slug: d3p0t/core
