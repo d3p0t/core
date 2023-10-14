@@ -3,6 +3,7 @@
 namespace D3p0t\Core\Pageable\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SortableRequest extends FormRequest
 {
@@ -23,7 +24,8 @@ class SortableRequest extends FormRequest
     {
         return [
             'sort_by'       => ['string', 'nullable'],
-            'sort_direction' => ['string', 'nullable']
+            'sort_direction' => ['string', 'nullable', Rule::in(['asc', 'desc']),
+            ]
         ];
     }
 
