@@ -18,8 +18,8 @@ class PageRequest
         int $pageNumber,
         SortRequest $sortRequest
     ) {
-        $this->per_page = $perPage;
-        $this->page_number = $pageNumber;
+        $this->perPage = $perPage;
+        $this->pageNumber = $pageNumber;
 
         $this->sortRequest = $sortRequest;
     }
