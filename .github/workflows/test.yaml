@@ -10,21 +10,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup PHP with Xdebug
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          coverage: xdebug
             
       - name: Install dependencies with composer
-        run: composer update --no-ansi --no-interaction --no-progress
+        uses: php-actions/composer@v6
           
       - name: Run tests with phpunit/phpunit
-        run: vendor/bin/phpunit --coverage-clover=coverage.xml
-          
-      - name: Fix code coverage paths
-        run: sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
-          
+        uses: php-actions/phpunit@v3
+        env:
+          XDEBUG_MODE: coverage
+        with:
+          configuration: phpunit.xml
+          args: tests --coverage-clover ./coverage.xml
+          php_extensions: xdebug
+          bootstrap: vendor/autoload.php
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
