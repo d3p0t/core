@@ -11,7 +11,7 @@ class ActivityLogTest extends TestCase {
 
     public function testShouldMapActivityLog() {
         $log = 'TEST LOG';
-        $performedOn = new Class extends Model { };
+        $performedOn = new class extends Model { };
         $causedBy = new Principal();
         $properties = [
             'foo'   => 'bar'
@@ -32,7 +32,7 @@ class ActivityLogTest extends TestCase {
 
     public function testShouldMapActivityLogWithCurrentUser() {
         $log = 'TEST LOG';
-        $performedOn = new Class extends Model { };
+        $performedOn = new class extends Model { };
         $causedBy = new Principal();
         $this->actingAs($causedBy);
         $properties = [
@@ -46,6 +46,26 @@ class ActivityLogTest extends TestCase {
         );
 
         $this->assertEquals($sut->causedBy(), $causedBy);
+        $this->assertEquals($sut->log(), $log);
+        $this->assertEquals($sut->properties(), $properties);
+        $this->assertEquals($sut->performedOn(), $performedOn);
+    }
+
+    public function testShouldMapActivityLogWithoutUser() {
+        $log = 'TEST LOG';
+        $performedOn = new class extends Model { };
+
+        $properties = [
+            'foo'   => 'bar'
+        ];
+
+        $sut = new ActivityLog(
+            log: $log,
+            performedOn: $performedOn,
+            properties: $properties
+        );
+
+        $this->assertNull($sut->causedBy());
         $this->assertEquals($sut->log(), $log);
         $this->assertEquals($sut->properties(), $properties);
         $this->assertEquals($sut->performedOn(), $performedOn);

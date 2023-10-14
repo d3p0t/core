@@ -17,7 +17,8 @@ class PageableRequestTest extends TestCase {
         $this->assertTrue($validator->passes());
 
         $this->assertEquals($sut->query('per_page'), 20);
-        $this->assertEquals($sut->query('page_number'), 0);        
+        $this->assertEquals($sut->query('page_number'), 0);     
+        $this->assertTrue($sut->authorize());      
     }
 
     public function testShouldMapPageableRequest() {
@@ -29,7 +30,8 @@ class PageableRequestTest extends TestCase {
         $this->assertTrue($validator->passes());
 
         $this->assertEquals($sut->query('per_page'), 5);
-        $this->assertEquals($sut->query('page_number'), 10);        
+        $this->assertEquals($sut->query('page_number'), 10);     
+        $this->assertTrue($sut->authorize());   
     }
 
     public function testShouldThrowValidationExceptionOnInvalidPerPage() {

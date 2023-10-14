@@ -17,7 +17,8 @@ class SortableRequestTest extends TestCase {
         $this->assertTrue($validator->passes());
 
         $this->assertEquals($sut->query('sort_direction'), 'asc');
-        $this->assertEquals($sut->query('sort_by'), 'id');        
+        $this->assertEquals($sut->query('sort_by'), 'id');       
+        $this->assertTrue($sut->authorize());    
     }
 
     public function testShouldMapSortableRequest() {
@@ -29,7 +30,8 @@ class SortableRequestTest extends TestCase {
         $this->assertTrue($validator->passes());
 
         $this->assertEquals($sut->query('sort_direction'), 'desc');
-        $this->assertEquals($sut->query('sort_by'), 'name');        
+        $this->assertEquals($sut->query('sort_by'), 'name');   
+        $this->assertTrue($sut->authorize());        
     }
 
     public function testShouldThrowValidationExceptionOnInvalidSortDirection() {
