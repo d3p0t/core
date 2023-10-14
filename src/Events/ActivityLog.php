@@ -2,7 +2,7 @@
 
 namespace D3p0t\Events;
 
-use D3p0t\Auth\Entities\User;
+use D3p0t\Core\Auth\Entities\Principal;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +15,7 @@ class ActivityLog
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     private Model $performedOn;
-    private User $causedBy;
+    private Principal $causedBy;
     private Array $properties = [];
 
     private String $log;
@@ -26,7 +26,7 @@ class ActivityLog
     public function __construct(
         ?String $log = '',
         ?Model $performedOn = null,
-        ?User $causedBy = null,
+        ?Principal $causedBy = null,
         ?Array $properties = []
     )
     {
@@ -48,7 +48,7 @@ class ActivityLog
         return $this->properties;
     }
 
-    public function causedBy(): User|null {
+    public function causedBy(): Principal|null {
         return $this->causedBy;
     }
 

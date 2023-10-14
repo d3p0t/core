@@ -13,6 +13,6 @@ abstract class Model extends BaseModel {
 
     public function getActivitylogOptions(): LogOptions {
         return LogOptions::defaults()
-            ->logOnly($this->fillable);
+            ->logFillable();
     }
 }
