@@ -1,6 +1,6 @@
 <?php
 
-namespace D3p0t\Services;
+namespace D3p0t\Core\Services;
 
 use D3p0t\Core\Entities\Notification;
 

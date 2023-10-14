@@ -1,9 +1,9 @@
 <?php
 
-namespace D3p0t\Listeners;
+namespace D3p0t\Core\Listeners;
 
 use D3p0t\Core\Entities\Notification;
-use D3p0t\Events\Notification as Event;
+use D3p0t\Core\Events\Notification as Event;
 
 class NotificationListener
 {
@@ -23,8 +23,9 @@ class NotificationListener
         $notification = new Notification([
             'subject'   => $event->subject(),
             'content'   => $event->content(),
-            'recipient' => $event->recipient()
         ]);
+
+        $notification->recipient()->associate($event->recipient());
 
         $notification->save();
     }
