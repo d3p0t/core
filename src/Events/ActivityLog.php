@@ -14,7 +14,7 @@ class ActivityLog
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     private Model $performedOn;
-    private Principal $causedBy;
+    private Principal|null $causedBy;
     private array $properties = [];
 
     private String $log;
@@ -32,7 +32,7 @@ class ActivityLog
         $this->log = $log;
         $this->properties = $properties;
         $this->performedOn = $performedOn;
-        $this->causedBy = $causedBy ?? Auth::user();
+        $this->causedBy = $causedBy ?? Auth::user() ?? null;
     }
 
     public function log(): String {

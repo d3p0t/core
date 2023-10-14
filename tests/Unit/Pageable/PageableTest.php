@@ -66,5 +66,6 @@ class PageableTest extends TestCase {
         $this->assertEquals($sut->totalItems(), 10);
         $this->assertTrue($sut->first());
         $this->assertFalse($sut->last());
+        $this->assertEquals($sut->pageRequest(), $request);
     }
 }
