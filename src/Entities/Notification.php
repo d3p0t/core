@@ -18,4 +18,8 @@ class Notification extends Model {
         return $this->morphTo();
     }
 
+    public function read() {
+        $this->is_read = true;
+        $this->save();
+    }
 }

@@ -34,7 +34,7 @@ class AuditableModelTest extends TestCase {
 
          $sut->save();
 
-        $this->assertEquals($sut->created_by, 'SYSTEM');
+        $this->assertEquals($sut->created_by, 'ANONYMOUS');
         $this->assertNull($sut->updated_by);
     }
 
@@ -67,8 +67,8 @@ class AuditableModelTest extends TestCase {
 
         $sut->save();
 
-        $this->assertEquals($sut->created_by, 'SYSTEM');
-        $this->assertEquals($sut->updated_by, 'SYSTEM');
+        $this->assertEquals($sut->created_by, 'ANONYMOUS');
+        $this->assertEquals($sut->updated_by, 'ANONYMOUS');
     }
 
     public function testUpdateAuth() {
