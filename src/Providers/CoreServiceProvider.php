@@ -9,7 +9,7 @@ class CoreServiceProvider extends ServiceProvider {
 
     use PublishesMigrations;
 
-    public function boot() {        
+    public function boot() {
         $this->registerMigrations(__DIR__ . '/../../database/migrations');
 
         $this->publishes([

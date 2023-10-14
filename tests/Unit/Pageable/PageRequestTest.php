@@ -17,6 +17,7 @@ class PageRequestTest extends TestCase {
 
         $this->assertEquals($sut->perPage(), 20);
         $this->assertEquals($sut->pageNumber(), 0);
+        $this->assertNotNull($sut->sortRequest());
     }
 
     public function testShouldMapPageRequest() {
@@ -26,5 +27,6 @@ class PageRequestTest extends TestCase {
 
         $this->assertEquals($sut->perPage(), 5);
         $this->assertEquals($sut->pageNumber(), 10);
+        $this->assertNotNull($sut->sortRequest());
     }
 }
