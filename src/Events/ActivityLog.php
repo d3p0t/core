@@ -1,6 +1,6 @@
 <?php
 
-namespace D3p0t\Events;
+namespace D3p0t\Core\Events;
 
 use D3p0t\Core\Auth\Entities\Principal;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -32,7 +32,7 @@ class ActivityLog
         $this->log = $log;
         $this->properties = $properties;
         $this->performedOn = $performedOn;
-        $this->causedBy = $causedBy || Auth::user();
+        $this->causedBy = $causedBy ?? Auth::user();
     }
 
     public function log(): String {
