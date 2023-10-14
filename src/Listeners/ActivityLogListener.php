@@ -1,6 +1,6 @@
 <?php
 
-namespace D3p0t\Listeners;
+namespace D3p0t\Core\Listeners;
 
 use D3p0t\Events\ActivityLog;
 

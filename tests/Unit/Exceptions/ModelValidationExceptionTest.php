@@ -46,4 +46,3 @@ class ModelValidationExceptionTest extends TestCase {
         $this->assertEquals($sut->render(null)->status(), 500);
     }
 }
-
