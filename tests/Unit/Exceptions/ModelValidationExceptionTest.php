@@ -20,7 +20,7 @@ class ModelValidationExceptionTest extends TestCase {
         });
 
         $cause = new ValidationException($validator);
-        $model = new Class extends Model { };
+        $model = new class extends Model { };
 
         $sut = new ModelValidationException($cause, $model);
 
@@ -38,7 +38,7 @@ class ModelValidationExceptionTest extends TestCase {
         });
 
         $cause = new ValidationException($validator);
-        $model = new Class extends Model { };
+        $model = new class extends Model { };
 
         $sut = new ModelValidationException($cause, $model);
 

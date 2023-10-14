@@ -2,6 +2,7 @@
 
 namespace D3p0t\Core\Tests\Unit\Listeners;
 
+use D3p0t\Core\Auth\Entities\Principal;
 use D3p0t\Core\Entities\Model;
 use D3p0t\Core\Events\ActivityLog;
 use D3p0t\Core\Listeners\ActivityLogListener;
@@ -19,12 +20,14 @@ class ActivityLogListenerTest extends TestCase {
     public function testShouldMapBasicActivityLog() {
         $sut = new ActivityLogListener();
 
-        $model = new class extends Model {
-        };
+        $model = new class extends Model { };
+
+        $causedBy = new class extends Principal { };
 
         $event = new ActivityLog(
             log: 'Log',
             performedOn: $model,
+            causedBy: $causedBy
         );
 
         $mock = $this->mock(ActivityLogger::class, function(MockInterface $mockInterface) {
@@ -41,6 +44,9 @@ class ActivityLogListenerTest extends TestCase {
         $mock->shouldReceive('log')
             ->once()
             ->withArgs(['Log']);
+        $mock->shouldReceive('causedBy')
+            ->once()
+            ->withArgs([$causedBy]);
 
         $sut->handle($event);
 
