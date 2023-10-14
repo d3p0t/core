@@ -6,7 +6,7 @@ use D3p0t\Core\Pageable\Requests\PageableRequest;
 use D3p0t\Core\Tests\TestCase;
 use Validator;
 
-class TestPageableRequest extends TestCase {
+class PageableRequestTest extends TestCase {
 
     public function testShouldMapEmptyPageableRequest() {
         $sut = new PageableRequest();
