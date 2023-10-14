@@ -13,7 +13,7 @@ class Pageable
 
     private PageRequest $pageRequest;
 
-    private Array $items;
+    private array $items;
 
     private int $totalItems;
 
@@ -36,7 +36,7 @@ class Pageable
         return $this->pageRequest;
     }
 
-    public function items(): Array
+    public function items(): array
     {
         return $this->items;
     }

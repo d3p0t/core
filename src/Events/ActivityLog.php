@@ -4,7 +4,6 @@ namespace D3p0t\Events;
 
 use D3p0t\Core\Auth\Entities\Principal;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -16,7 +15,7 @@ class ActivityLog
 
     private Model $performedOn;
     private Principal $causedBy;
-    private Array $properties = [];
+    private array $properties = [];
 
     private String $log;
 
@@ -27,7 +26,7 @@ class ActivityLog
         ?String $log = '',
         ?Model $performedOn = null,
         ?Principal $causedBy = null,
-        ?Array $properties = []
+        ?array $properties = []
     )
     {
         $this->log = $log;
@@ -44,7 +43,7 @@ class ActivityLog
         return $this->performedOn;
     }
 
-    public function properties(): Array {
+    public function properties(): array {
         return $this->properties;
     }
 
@@ -52,15 +51,4 @@ class ActivityLog
         return $this->causedBy;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
-    public function broadcastOn(): array
-    {
-        return [
-            new PrivateChannel('channel-name'),
-        ];
-    }
 }

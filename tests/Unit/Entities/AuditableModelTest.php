@@ -23,20 +23,6 @@ class AuditableModelTest extends TestCase {
             $table->timestamps();
         });
 
-        Schema::create('activities', function ($table) {
-            $table->temporary();
-            $table->bigIncrements('id');
-            $table->string('log_name')->nullable();
-            $table->text('description');
-            $table->nullableMorphs('subject', 'subject');
-            $table->nullableMorphs('causer', 'causer');
-            $table->json('properties')->nullable();
-            $table->uuid('batch_uuid')->nullable();
-            $table->string('event')->nullable();
-            $table->timestamps();
-            $table->index('log_name');
-        });
-
     }
 
     public function testCreateAnonymous() {

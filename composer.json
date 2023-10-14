@@ -1,7 +1,10 @@
 {
     "name": "d3p0t/core",
     "description": "API package for Laravel",
-    "keywords": ["API", "laravel"],
+    "keywords": [
+        "API",
+        "laravel"
+    ],
     "license": "MIT",
     "version": "1.0.0",
     "require": {
@@ -23,7 +26,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "D3p0t\\Core\\Tests\\": "tests/"
+            "D3p0t\\Core\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
         }
     },
     "authors": [
@@ -36,6 +42,24 @@
     "scripts": {
         "test": "phpunit",
         "format": "php-cs-fixer fix --allow-risky=yes",
-        "analyse": "phpstan analyse"
+        "analyse": "phpstan analyse",
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "D3p0t\\Core\\Providers\\CoreServicePRovider"
+            ]
+        }
     }
 }

@@ -1,0 +1,17 @@
+providers:
+  - D3p0t\Core\Providers\CoreServiceProvider
+
+migrations:
+  - database\migrations
+
+workbench:
+  start: '/'
+  install: true
+  welcome: true
+  discovers:
+    web: false
+    api: false
+    commands: false
+  build: []
+  assets: []
+  sync: []

@@ -8,20 +8,20 @@ use D3p0t\Core\Pageable\Requests\SortableRequest;
 class PageRequest
 {
 
-    private int $per_page;
-    private int $page_number;
+    private int $perPage;
+    private int $pageNumber;
 
-    private SortRequest $sort_request;
+    private SortRequest $sortRequest;
 
     private function __construct(
-        int $per_page,
-        int $page_number,
-        SortRequest $sort_request
+        int $perPage,
+        int $pageNumber,
+        SortRequest $sortRequest
     ) {
-        $this->per_page = $per_page;
-        $this->page_number = $page_number;
+        $this->per_page = $perPage;
+        $this->page_number = $pageNumber;
 
-        $this->sort_request = $sort_request;
+        $this->sortRequest = $sortRequest;
     }
 
     /**
@@ -30,7 +30,7 @@ class PageRequest
      */
     public function perPage(): int
     {
-        return $this->per_page;
+        return $this->perPage;
     }
 
     /**
@@ -39,7 +39,7 @@ class PageRequest
      */
     public function pageNumber(): int
     {
-        return $this->page_number;
+        return $this->pageNumber;
     }
 
     /**
@@ -47,7 +47,7 @@ class PageRequest
      * @return SortRequest
      */
     public function sortRequest(): SortRequest {
-        return $this->sort_request;
+        return $this->sortRequest;
     }
 
     public static function fromRequest(PageableRequest $request, SortableRequest $sortableRequest): PageRequest

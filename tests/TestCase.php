@@ -3,22 +3,18 @@
 namespace D3p0t\Core\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Orchestra\Testbench\Concerns\WithWorkbench;
+
 
 abstract class TestCase extends BaseTestCase
 {
 
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
+    use WithWorkbench;
 
-        $app['config']->set('activitylog', [
-            'default_auth_driver' => null,
-            'default_log_name' => 'default'
-        ]);
+    protected function setUp(): void {
+        parent::setUp();
+
+        $this->loadMigrationsFrom(realpath(__DIR__.'/../database/migrations'));
     }
+
 }

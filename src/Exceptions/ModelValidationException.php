@@ -31,7 +31,7 @@ class ModelValidationException extends Exception
         return $this->cause;
     }
 
-    public function render(Request $request): Response
+    public function render(?Request $request): Response
     {
         return response(
             $this->message,
