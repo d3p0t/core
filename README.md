@@ -130,4 +130,63 @@ use D3p0t\Core\Listeners\NotificationListener;
 ```
 
 Any Models that can receive notifications can use the [HasNotifications Trait.](src/Traits/HasNotifications.php).
-This trait adds `notifications`, `unreadNotifications`, `readNotifications` and `sendNotification` functions.
+This trait adds `unreadNotifications`, `readNotifications` and `sendNotification` functions.
+
+## Pageable
+To get `Paged` response, you can use the [Pageable](src/Pageable/Pageable.php) class.
+
+Controllers can use the [PageableReqeust](src/Pageable/Requests/PageableRequest.php) and the [SortableRequest](src/Pageable/Requests/SortableRequest.php).
+
+
+### Example
+The example below shows the Pageable in action.
+
+### Controller
+```php
+
+  public function search(
+        PageableRequest $pageableRequest,
+        SortableRequest $sortableRequest,
+    ) {
+        $searchCriteria = [];
+        $pageable = $this->service->search(
+            PageRequest::fromRequest(
+                $pageableRequest,
+                $sortableRequest
+            ),
+            $searchCriteria
+        );
+    }
+
+```
+
+#### Service
+```php
+
+public function search(PageRequest $pageRequest, array $searchCriteria = []): Pageable {
+    $result = Model::where(function($q) use ($searchCriteria) {
+        if (array_key_exists('name', $searchCriteria)) {
+            $q->where('name', 'LIKE', '%' . $searchCriteria['name'] . '%');
+        }
+        // Other filters
+
+        return $q;
+    })
+    ->orderBy(
+        $pageRequest->sortRequest->sortBy(), $pageRequest->sortRequest->sortDirection()
+    )->get();
+
+    return new Pageable(
+        $pageRequest,
+        new LengthAwarePaginator(
+            $result->slice(
+                $pageRequest->perPage() * $pageRequest->pageNumber(),
+                $pageRequest->perPage()
+            ),
+            $result->count(),
+            $pageRequest->perPage(),
+            $pageRequest->pageNumber()
+        )
+    );
+}
+```
