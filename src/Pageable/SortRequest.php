@@ -7,15 +7,15 @@ use D3p0t\Core\Pageable\Requests\SortableRequest;
 class SortRequest
 {
 
-    private String $sort_by;
-    private String $sort_direction;
+    private String $sortBy;
+    private String $sortDirection;
 
     private function __construct(
-        String $sort_by,
-        String $sort_direction
+        String $sortBy,
+        String $sortDirection
     ) {
-        $this->sort_by = $sort_by;
-        $this->sort_direction = $sort_direction;
+        $this->sortBy = $sortBy;
+        $this->sortDirection = $sortDirection;
     }
 
     /**
@@ -24,7 +24,7 @@ class SortRequest
      */
     public function sortBy(): String
     {
-        return $this->sort_by;
+        return $this->sortBy;
     }
 
     /**
@@ -33,7 +33,7 @@ class SortRequest
      */
     public function sortDirection(): String
     {
-        return $this->sort_direction;
+        return $this->sortDirection;
     }
 
     public static function fromRequest(SortableRequest $request): SortRequest

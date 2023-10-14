@@ -1,10 +1,9 @@
 <?php
 
-namespace D3p0t\Events;
+namespace D3p0t\Core\Events;
 
-use D3p0t\Auth\Entities\User;
+use D3p0t\Core\Auth\Entities\Principal;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -15,8 +14,8 @@ class ActivityLog
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     private Model $performedOn;
-    private User $causedBy;
-    private Array $properties = [];
+    private Principal $causedBy;
+    private array $properties = [];
 
     private String $log;
 
@@ -26,14 +25,14 @@ class ActivityLog
     public function __construct(
         ?String $log = '',
         ?Model $performedOn = null,
-        ?User $causedBy = null,
-        ?Array $properties = []
+        ?Principal $causedBy = null,
+        ?array $properties = []
     )
     {
         $this->log = $log;
         $this->properties = $properties;
         $this->performedOn = $performedOn;
-        $this->causedBy = $causedBy || Auth::user();
+        $this->causedBy = $causedBy ?? Auth::user();
     }
 
     public function log(): String {
@@ -44,23 +43,12 @@ class ActivityLog
         return $this->performedOn;
     }
 
-    public function properties(): Array {
+    public function properties(): array {
         return $this->properties;
     }
 
-    public function causedBy(): User|null {
+    public function causedBy(): Principal|null {
         return $this->causedBy;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
-    public function broadcastOn(): array
-    {
-        return [
-            new PrivateChannel('channel-name'),
-        ];
-    }
 }

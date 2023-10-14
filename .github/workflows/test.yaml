@@ -1,0 +1,31 @@
+name: Run tests
+
+on:
+  push:
+
+jobs:
+  phpunit:
+    name: Run PHPUnit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+            
+      - name: Install dependencies with composer
+        uses: php-actions/composer@v6
+          
+      - name: Run tests with phpunit/phpunit
+        uses: php-actions/phpunit@v3
+        env:
+          XDEBUG_MODE: coverage
+        with:
+          configuration: phpunit.xml
+          args: tests --coverage-clover ./coverage.xml
+          php_extensions: xdebug
+          bootstrap: vendor/autoload.php
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

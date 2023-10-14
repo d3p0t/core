@@ -7,6 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 abstract class ModelRequest extends FormRequest {
     
-    abstract function toModel(): Model;
+    abstract public function toModel(): Model;
 
 }
