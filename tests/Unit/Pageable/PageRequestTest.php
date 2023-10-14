@@ -5,7 +5,6 @@ namespace D3p0t\Core\Tests\Unit\Pageable;
 use D3p0t\Core\Pageable\PageRequest;
 use D3p0t\Core\Pageable\Requests\PageableRequest;
 use D3p0t\Core\Pageable\Requests\SortableRequest;
-use D3p0t\Core\Pageable\SortRequest;
 use D3p0t\Core\Tests\TestCase;
 
 class PageRequestTest extends TestCase {

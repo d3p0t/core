@@ -2,7 +2,7 @@
 
 namespace D3p0t\Core\Listeners;
 
-use D3p0t\Events\ActivityLog;
+use D3p0t\Core\Events\ActivityLog;
 
 class ActivityLogListener
 {
@@ -26,11 +26,11 @@ class ActivityLogListener
         }
 
         if ($event->properties()) {
-            $logger = $logger->properties($event->properties());
+            $logger = $logger->withProperties($event->properties());
         }
 
-        if ($event->causedBy()) {
-            $logger = $logger->causedBy($event->causedBy());
+        if ($event->performedOn()) {
+            $logger = $logger->performedOn($event->performedOn());
         }
 
         $logger->log($event->log());
