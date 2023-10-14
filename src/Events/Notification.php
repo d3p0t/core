@@ -20,8 +20,8 @@ class Notification
      * Create a new event instance.
      */
     public function __construct(
-        String $subject = '',
-        String $content = '',
+        String $subject,
+        String $content,
         Principal $recipient
     )
     {
