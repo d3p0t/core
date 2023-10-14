@@ -25,7 +25,6 @@ class NotificationServiceTest extends TestCase {
 
     }
 
-
     public function testShouldSendNotification() {
         $recipient = new class extends Principal {
             protected $table = 'users';
@@ -51,6 +50,32 @@ class NotificationServiceTest extends TestCase {
         $this->assertEquals($res->is_read, 0);
         $this->assertEquals($res->subject, 'Test notification');
         $this->assertEquals($res->content, 'This is a test notification');
+    }
+
+    public function testShouldReadNotification() {
+        $recipient = new class extends Principal {
+            protected $table = 'users';
+        };
+
+        $recipient->name = 'John Doe';
+
+        $recipient->save();
+
+        $notification = new Notification([
+            'subject'   => 'Test notification',
+            'content'   => 'This is a test notification',
+            'is_read'   => false
+        ]);
+
+        $notification->recipient()->associate($recipient);
+
+        $notification->save();
+
+        $this->assertTrue($this->sut->readNotification($notification->id));
+
+        $res = $this->sut->getById($notification->id);
+
+        $this->assertEquals($res->is_read, 1);
     }
 
 }
