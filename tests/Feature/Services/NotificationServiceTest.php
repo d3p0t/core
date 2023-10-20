@@ -7,6 +7,7 @@ use D3p0t\Core\Entities\Notification;
 use D3p0t\Core\Tests\TestCase;
 use D3p0t\Core\Services\NotificationService;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
 use Illuminate\Support\Facades\Schema;
 
 class NotificationServiceTest extends TestCase {
@@ -34,22 +35,19 @@ class NotificationServiceTest extends TestCase {
 
         $recipient->save();
 
-        $notification = new Notification([
-            'subject'   => 'Test notification',
-            'content'   => 'This is a test notification',
-            'is_read'   => false
-        ]);
+        $message = 'This is a test';
 
-        $notification->recipient()->associate($recipient);
+        $notification = new TestNotification($message);
 
-        $notification->save();
+        $this->assertEmpty($recipient->notifications);
 
-        $res = $this->sut->getById($notification->id);
+        $recipient->notify($notification);
 
-        $this->assertEquals($res->recipient->id, $recipient->id);
-        $this->assertEquals($res->is_read, 0);
-        $this->assertEquals($res->subject, 'Test notification');
-        $this->assertEquals($res->content, 'This is a test notification');
+        $recipient = $recipient->fresh();
+
+        $this->assertEquals(1, $recipient->notifications->count());
+        $this->assertEquals(1, $recipient->unreadNotifications->count());
+        $this->assertEquals($message, $recipient->unreadNotifications[0]->data['message']);
     }
 
     public function testShouldReadNotification() {
@@ -61,21 +59,48 @@ class NotificationServiceTest extends TestCase {
 
         $recipient->save();
 
-        $notification = new Notification([
-            'subject'   => 'Test notification',
-            'content'   => 'This is a test notification',
-            'is_read'   => false
-        ]);
+        $notification = new TestNotification('This is a test');
 
-        $notification->recipient()->associate($recipient);
+        $this->assertEmpty($recipient->notifications);
 
-        $notification->save();
+        $recipient->notify($notification);
 
-        $this->assertTrue($this->sut->readNotification($notification->id));
+        $recipient = $recipient->fresh();
 
-        $res = $this->sut->getById($notification->id);
+        $this->assertEquals(1, $recipient->notifications->count());
+        $this->assertEquals(1, $recipient->unreadNotifications->count());
 
-        $this->assertEquals($res->is_read, 1);
+        $recipient->notifications[0]->markAsRead();
+
+        $recipient = $recipient->fresh();
+
+        $this->assertEquals(1, $recipient->notifications->count());
+        $this->assertEquals(0, $recipient->unreadNotifications->count());
+    }
+
+}
+
+
+class TestNotification extends \Illuminate\Notifications\Notification {
+
+    private string $message;
+
+    public function __construct(string $message)
+    {
+        $this->message = $message;
+    }
+
+    public function via($notifiable) {
+        return ['database'];
+    }
+
+    public function toArray($notifiable) {
+        return [
+            'id'        => $notifiable->id,
+            'name'      => $notifiable->name,
+            'foo'       => 'bar',
+            'message'   => $this->message
+        ];
     }
 
 }

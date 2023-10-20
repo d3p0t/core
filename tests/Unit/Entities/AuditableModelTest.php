@@ -43,7 +43,7 @@ class AuditableModelTest extends TestCase {
             protected $table = 'audit';
          };
 
-        $auth = new Principal();
+        $auth = new class extends Principal{ };
         $auth->id = 1;
 
         $this->actingAs($auth);
@@ -76,7 +76,7 @@ class AuditableModelTest extends TestCase {
             protected $table = 'audit';
          };
 
-        $auth = new Principal();
+        $auth = new class extends Principal{ };
         $auth->id = 1;
 
         $this->actingAs($auth);

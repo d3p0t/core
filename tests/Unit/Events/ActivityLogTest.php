@@ -12,7 +12,7 @@ class ActivityLogTest extends TestCase {
     public function testShouldMapActivityLog() {
         $log = 'TEST LOG';
         $performedOn = new class extends Model { };
-        $causedBy = new Principal();
+        $causedBy = new class extends Principal{ };
         $properties = [
             'foo'   => 'bar'
         ];
@@ -33,7 +33,7 @@ class ActivityLogTest extends TestCase {
     public function testShouldMapActivityLogWithCurrentUser() {
         $log = 'TEST LOG';
         $performedOn = new class extends Model { };
-        $causedBy = new Principal();
+        $causedBy = new class extends Principal{ };
         $this->actingAs($causedBy);
         $properties = [
             'foo'   => 'bar'
